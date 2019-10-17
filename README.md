@@ -208,3 +208,31 @@ console.log(decryptedData); // [{id: 1}, {id: 2}]
 - ```crypto-js/pad-iso97971```
 - ```crypto-js/pad-zeropadding```
 - ```crypto-js/pad-nopadding```
+
+
+
+```javascript
+
+//encrypt
+var rawStr = "hello world!";
+var wordArray = CryptoJS.enc.Utf8.parse(rawStr);
+var base64 = CryptoJS.enc.Base64.stringify(wordArray);
+console.log('encrypted:', base64);
+
+//decrypt
+var parsedWordArray = CryptoJS.enc.Base64.parse(base64);
+var parsedStr = parsedWordArray.toString(CryptoJS.enc.Utf8);
+console.log("parsed:",parsedStr);
+
+
+//CBC模式加密
+function encryptByDESModeCBC(message,key){
+	var keyHex = CryptoJS.enc.Utf8.parse(key);
+	var ivHex = CryptoJS.enc.Utf8.parse(key);
+	encrypted = CryptoJS.DES.encrypt(message,keyHex,{
+		iv:ivHex,
+		mode: CryptoJS.mode.CBC
+	});
+	return encrypted.ciphertext.toString();
+}
+```
