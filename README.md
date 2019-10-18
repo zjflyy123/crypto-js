@@ -212,20 +212,30 @@ console.log(decryptedData); // [{id: 1}, {id: 2}]
 
 
 ```javascript
+js 引用  <script src="crypto-js.min.js"></script>
+小程序的ajax使用  var CryptoJS = require("@/common/js/crypto-js");
+小程序的vue使用 import CryptoJS from '/common/js/crypto-js.js'
 
-//encrypt
+//base64 encrypt
 var rawStr = "hello world!";
 var wordArray = CryptoJS.enc.Utf8.parse(rawStr);
+这里注意必须使用上边的 CryptoJS.enc.Utf8.parse 后的字符串才行
 var base64 = CryptoJS.enc.Base64.stringify(wordArray);
 console.log('encrypted:', base64);
 
-//decrypt
+//base64  decrypt
 var parsedWordArray = CryptoJS.enc.Base64.parse(base64);
 var parsedStr = parsedWordArray.toString(CryptoJS.enc.Utf8);
 console.log("parsed:",parsedStr);
 
+//HmacSHA1
+CryptoJS.HmacSHA1("dddddd","EpointMobileService_Xcx**##")
 
-//CBC模式加密
+
+
+
+
+//des加密 CBC模式加密
 function encryptByDESModeCBC(message,key){
 	var keyHex = CryptoJS.enc.Utf8.parse(key);
 	var ivHex = CryptoJS.enc.Utf8.parse(key);
@@ -235,4 +245,7 @@ function encryptByDESModeCBC(message,key){
 	});
 	return encrypted.ciphertext.toString();
 }
+
+
+
 ```
